@@ -1,3 +1,5 @@
+# image-uploader
+
 Yep. Hosts images. One of the more well-coded and graceful scripts 
 I’ve written. Takes advantage of the multiple-upload HTML5 element. 
 Each uploaded image is hashed to it’s CRC32 hash, and then stored 
@@ -14,8 +16,7 @@ it will overwrite the current file. Thumbnails are generated at
 upload using the PHP ImageMagick PECL library. HTML, phpBB, and 
 direct URL codes are given when images are uploaded.
 
-Created and maintained by Andrew Peng:
-http://andrewpeng.net/computing/php-scripting/image-uploader-script
+***
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
