@@ -16,6 +16,16 @@ echo "<meta content=\"True\" name=\"HandheldFriendly\" />";
 echo "<meta content=\"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;\" name=\"viewport\" />";
 echo "<meta name=\"viewport\" content=\"width=device-width\" />";
 
+if( isset($_SERVER['HTTPS'] ) )
+{
+        $protocol = "https://";
+}
+
+else
+{
+        $protocol = "http://";
+}
+
 if(isset($_FILES["uploadFiles"]))
 {
         $uploaded = false;
@@ -62,7 +72,7 @@ if(isset($_FILES["uploadFiles"]))
                         $fileNewName = $fileHash.".".$fileExt;
                         $globArray = glob($uploadDir.substr($fileHash, 0, 1)."*");
                         $fileNewLoc = $globArray[0]."/".$fileNewName;
-                        $fileAbsLoc = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$fileNewLoc;
+                        $fileAbsLoc = $protocol.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$fileNewLoc;
                         $fileLocArray['full'][] = $fileAbsLoc;
 
                         #Move the file from the tmp location to the storage location
@@ -90,8 +100,8 @@ if(isset($_FILES["uploadFiles"]))
                                 $theImage->destroy();
 
                                 #Attach thumbnail URLs to the response array
-                                $fileLocArray['thumb'][] = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_tn.".$fileExt;
-                                $fileLocArray['medium'][] = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_md.".$fileExt;
+                                $fileLocArray['thumb'][] = $protocol.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_tn.".$fileExt;
+                                $fileLocArray['medium'][] = $protocol.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_md.".$fileExt;
                         }
 
                         #Only drop into the loop if upload file is a GIF
@@ -110,8 +120,8 @@ if(isset($_FILES["uploadFiles"]))
                                 exec("/usr/bin/gifsicle --batch --optimize=03 $fileNewLoc");
 
                                 #Attach thumbnail URLs to the response array
-                                $fileLocArray['thumb'][] = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_tn.".$fileExt;
-                                $fileLocArray['medium'][] = "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_md.".$fileExt;
+                                $fileLocArray['thumb'][] = $protocol.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_tn.".$fileExt;
+                                $fileLocArray['medium'][] = $protocol.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].$globArray[0]."/".$fileHash."_md.".$fileExt;
                         }
 
                         #Only drop into the loop if upload file is a video
